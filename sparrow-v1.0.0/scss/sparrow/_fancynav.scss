@@ -1,0 +1,297 @@
+/*-----------------------------------------------
+|   Fancynav
+-----------------------------------------------*/
+.fancynavbar {
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+  width: 100%;
+  font-family: $font-family-sans-serif;
+
+  @include media-breakpoint-up($navBreakPointUp) {
+    right: 0;
+    height: 100vh;
+    width: $fancyNavWidth;
+  }
+}
+
+
+/*-----------------------------------------------
+|   Fancy Navbar
+-----------------------------------------------*/
+.fancynavbar-togglerbar {
+  display: flex;
+  justify-content: space-between;
+  @include media-breakpoint-down($navBreakPointDown) {
+    align-items: center;
+    height: $fancyNavHeight;
+  }
+  @include media-breakpoint-up($navBreakPointUp) {
+    height: 100%;
+    text-align: center;
+    background-color: $black;
+    flex-direction: column;
+    padding-top: map_get($spacers, 2);
+    padding-bottom: map_get($spacers, 2);
+  }
+}
+
+
+/*-----------------------------------------------
+|   Fancy Navbar Brand
+-----------------------------------------------*/
+.fancynavbar-brand {
+  color: $white;
+  padding: map_get($spacers, 2) map_get($spacers, 3);
+}
+.fancynavbar-brand-img { opacity: 1 !important; }
+
+
+/*-----------------------------------------------
+|   Fancy Navbar Toggler
+-----------------------------------------------*/
+.fancynavbar-toggler {
+  cursor: pointer;
+  width: $fancyNavWidth;
+  height: $fancyNavWidth;
+  opacity: 1 !important;
+  @include media-breakpoint-down($navBreakPointDown) { transform: translateY(4%); }
+}
+.fancynavbar-toggler-icon {
+  path {
+    fill: none;
+    stroke: $white;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+  }
+}
+
+
+/*-----------------------------------------------
+|   Fancy Navbar Addon
+-----------------------------------------------*/
+.fancynavbar-addon {
+  @include media-breakpoint-down($navBreakPointDown) { display: none !important; }
+  padding-left: 0;
+}
+.fancynavbar-addon-item {
+  display: block;
+  color: $light;
+  margin-top: map_get($spacers, 2);
+  font-size: map_get($font-sizes, 1);
+  transition: $transition-base;
+  
+  @include hover-focus { color: $gray-500; }
+}
+
+
+/*-----------------------------------------------
+|   Fancy Navbar Collapse
+-----------------------------------------------*/
+.fancynavbar-collapse {
+  height: 100vh;
+  align-items: center;
+  display: flex;
+  overflow: auto;
+  position: absolute;
+  text-align: left;
+  width: calc(50vw - #{$fancyNavWidth / 2});
+  right: calc(50% + #{$fancyNavWidth / 2});
+  transform: translateX(100%);
+  top: 0;
+  padding: 0;
+  z-index: -1;
+  backdrop-filter: blur(20px);
+  background-color: $black;
+  opacity: 0.92;
+
+  @include media-breakpoint-down($navBreakPointDown) {
+    width: 100vw;
+    //top: 100%;
+    top: $fancyNavHeight;
+    right: 0;
+    height: calc(100vh - #{$fancyNavHeight});
+  }
+
+  @include media-breakpoint-up($navBreakPointUp) { padding-left: $fancyNavWidth; }
+}
+
+
+/*-----------------------------------------------
+|   Fancy Navbar Nav
+-----------------------------------------------*/
+.fancynavbar-nav {
+  height: auto;
+  width: 100%;
+  list-style-type: none;
+  list-style-image: none;
+  padding-left: map_get($spacers, 3);
+  padding-right: map_get($spacers, 3);
+  margin: auto 0;
+  @include media-breakpoint-up($navBreakPointUp) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+
+/*-----------------------------------------------
+|   Fancy Navbar Link
+-----------------------------------------------*/
+.fancynav-link {
+  position: relative;
+  display: block;
+
+  font-size: map_get($font-sizes, 2);
+  @include media-breakpoint-between(sm, $navBreakPointDown) { font-size: map_get($font-sizes, 3); }
+  @include media-breakpoint-up(xl) { font-size: map_get($font-sizes, 3); }
+
+  @include media-breakpoint-up($navBreakPointUp) {
+    padding-right: map_get($spacers, 5);
+    padding-left: map_get($spacers, 5);
+  }
+
+  &:before {
+    //@include media-breakpoint-up($navBreakPointUp) { content: ''; }
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 0;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    transition: all 0.5s;
+    background-color: $gray-600;
+    z-index: 0;
+  }
+
+  &.fancy-dropdown-toggle .fancynav-link-content {
+    padding-right: map_get($spacers, 5);
+
+    &:after {
+      position: absolute;
+      left: calc(100% - #{$fancyNavWidth / 2});
+      top: 0;
+      transform: translateY(-50%);
+      content: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMi4zMyA3LjAzIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2UwZTBlMDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPkFzc2V0IDlzcGFycm93PC90aXRsZT48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iQ2FwYV8xIiBkYXRhLW5hbWU9IkNhcGEgMSI+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNi4xNyw3YS44Ni44NiwwLDAsMS0uNjEtLjI1TC4yNSwxLjQ3QS44Ni44NiwwLDEsMSwxLjQ3LjI1TDYuMTcsNC45NSwxMC44Ni4yNWEuODYuODYsMCwwLDEsMS4yMiwxLjIybC01LjMsNS4zQS44Ni44NiwwLDAsMSw2LjE3LDdaIi8+PC9nPjwvZz48L3N2Zz4=);
+      text-align: center;
+      color: white;
+      width: 15px;
+      height: 10px;
+      background-color: $black;
+      z-index: 99;
+    }
+  }
+
+  &.show {
+    &:before { width: 100%; }
+    .fancynav-link-content:after { content: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNi41IDkuNDEiPjxkZWZzPjxzdHlsZT4uY2xzLTF7ZmlsbDojZTBlMGUwO308L3N0eWxlPjwvZGVmcz48dGl0bGU+QXNzZXQgNnNwYXJyb3c8L3RpdGxlPjxnIGlkPSJMYXllcl8yIiBkYXRhLW5hbWU9IkxheWVyIDIiPjxnIGlkPSJDYXBhXzEiIGRhdGEtbmFtZT0iQ2FwYSAxIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik04LjI1LDBhMS4xNSwxLjE1LDAsMCwxLC44Mi4zNGw3LjA5LDcuMDlhMS4xNiwxLjE2LDAsMCwxLTEuNjMsMS42M0w4LjI1LDIuNzksMiw5LjA3QTEuMTYsMS4xNiwwLDEsMSwuMzQsNy40M0w3LjQzLjM0QTEuMTUsMS4xNSwwLDAsMSw4LjI1LDBaIi8+PC9nPjwvZz48L3N2Zz4=); }
+  }
+}
+
+
+/*-----------------------------------------------
+|   Fancy Navbar Link Content
+-----------------------------------------------*/
+.fancynav-link-content {
+  color: $gray-300;
+  background-color: $black;
+  display: inline-block;
+  padding-left: map_get($spacers, 3);
+  padding-right: map_get($spacers, 3);
+  position: relative;
+  z-index: 1;
+}
+
+
+/*-----------------------------------------------
+|   Fancy Navbar Item
+-----------------------------------------------*/
+.fancynav-item {
+  overflow: hidden;
+  transition: height 0.4s cubic-bezier(.77, 0, .18, 1);
+  
+  height: 41px;
+  @include media-breakpoint-between(sm, $navBreakPointDown) { height: 54px; }
+  @include media-breakpoint-up(xl) { height: 54px; }
+  
+  @include hover-focus {
+    .fancynav-link-content {
+      text-decoration: none;
+      color: $white;
+    }
+    .fancynav-link:before { width: 100%; }
+  }
+}
+
+
+/*-----------------------------------------------
+|   Fancy Dropdown
+-----------------------------------------------*/
+.fancy-dropdown-menu {
+  transition: height 0.2s cubic-bezier(.77, 0, .18, 1);
+
+  @include media-breakpoint-down($navBreakPointDown) {
+    margin-left: map_get($spacers, 2);
+    margin-right: map_get($spacers, 2);
+    padding-right: map_get($spacers, 4);
+    padding-left: map_get($spacers, 4);
+  }
+
+  @include media-breakpoint-up($navBreakPointUp) {
+    padding-right: map_get($spacers, 6);
+    padding-left: map_get($spacers, 6);
+  }
+}
+
+
+/*-----------------------------------------------
+|   Fancy Dropdown Item
+-----------------------------------------------*/
+.fancy-dropdown-item {
+  color: $gray-500;
+  font-weight: 700;
+  display: block;
+  transition: $transition-base;
+
+  @include hover-focus {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+
+
+/*-----------------------------------------------
+|   Adjusting the page Layout
+-----------------------------------------------*/
+
+.has-sidemenu {
+  .main { @include media-breakpoint-up($navBreakPointUp) { width: calc(100% - (#{$fancyNavWidth} - 0.0625rem)); } }
+
+  @include media-breakpoint-up($navBreakPointUp) {
+    .footer { width: calc(100% - #{$fancyNavWidth}); }
+    .remodal { right: #{$fancyNavWidth / 2}; }
+  }
+}
+
+
+
+/*-----------------------------------------------
+|   IE Fix
+-----------------------------------------------*/
+.ie {
+  .fancynav {
+    .fancynavbar {
+      height: 100vh;
+      @include media-breakpoint-down($navBreakPointDown) { height: calc(100vh - #{$fancyNavHeight}); }
+
+      .fancynavbar-content {
+        height: 100vh;
+        @include media-breakpoint-down($navBreakPointDown) { height: calc(100vh - #{$fancyNavHeight}); }
+      }
+    }
+  }
+}
